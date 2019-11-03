@@ -47,9 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomCanvas.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DrawForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +64,7 @@
     <Compile Include="MessageBoxHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MyFigure.cs" />
     <EmbeddedResource Include="DrawForm.resx">
       <DependentUpon>DrawForm.cs</DependentUpon>
     </EmbeddedResource>

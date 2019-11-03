@@ -42,14 +42,20 @@
             this.dottedRadioButton = new System.Windows.Forms.RadioButton();
             this.lineWidthNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.figureTypeGroup = new System.Windows.Forms.GroupBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.drawFigureCheckBox = new System.Windows.Forms.CheckBox();
             this.controlGroupBox.SuspendLayout();
             this.lineTypeGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lineWidthNumericUpDown)).BeginInit();
+            this.figureTypeGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // chooseColorButton
             // 
-            this.chooseColorButton.Location = new System.Drawing.Point(54, 29);
+            this.chooseColorButton.Location = new System.Drawing.Point(51, 28);
             this.chooseColorButton.Name = "chooseColorButton";
             this.chooseColorButton.Size = new System.Drawing.Size(120, 44);
             this.chooseColorButton.TabIndex = 0;
@@ -62,7 +68,7 @@
             this.disableListCheckBox.AutoSize = true;
             this.disableListCheckBox.Checked = true;
             this.disableListCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.disableListCheckBox.Location = new System.Drawing.Point(63, 277);
+            this.disableListCheckBox.Location = new System.Drawing.Point(60, 276);
             this.disableListCheckBox.Name = "disableListCheckBox";
             this.disableListCheckBox.Size = new System.Drawing.Size(98, 21);
             this.disableListCheckBox.TabIndex = 1;
@@ -72,7 +78,7 @@
             // 
             // okButton
             // 
-            this.okButton.Location = new System.Drawing.Point(29, 36);
+            this.okButton.Location = new System.Drawing.Point(182, 80);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(120, 44);
             this.okButton.TabIndex = 2;
@@ -84,16 +90,16 @@
             // 
             this.controlGroupBox.Controls.Add(this.okButton);
             this.controlGroupBox.Controls.Add(this.cancelButton);
-            this.controlGroupBox.Location = new System.Drawing.Point(214, 203);
+            this.controlGroupBox.Location = new System.Drawing.Point(216, 217);
             this.controlGroupBox.Name = "controlGroupBox";
-            this.controlGroupBox.Size = new System.Drawing.Size(175, 171);
+            this.controlGroupBox.Size = new System.Drawing.Size(324, 168);
             this.controlGroupBox.TabIndex = 4;
             this.controlGroupBox.TabStop = false;
             // 
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(29, 97);
+            this.cancelButton.Location = new System.Drawing.Point(22, 80);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(120, 44);
             this.cancelButton.TabIndex = 6;
@@ -106,7 +112,7 @@
             this.customLineTypes.FormattingEnabled = true;
             this.customLineTypes.HorizontalScrollbar = true;
             this.customLineTypes.ItemHeight = 16;
-            this.customLineTypes.Location = new System.Drawing.Point(33, 130);
+            this.customLineTypes.Location = new System.Drawing.Point(30, 129);
             this.customLineTypes.Name = "customLineTypes";
             this.customLineTypes.Size = new System.Drawing.Size(156, 132);
             this.customLineTypes.TabIndex = 5;
@@ -114,7 +120,7 @@
             // customColorsLabel
             // 
             this.customColorsLabel.AutoSize = true;
-            this.customColorsLabel.Location = new System.Drawing.Point(51, 97);
+            this.customColorsLabel.Location = new System.Drawing.Point(57, 96);
             this.customColorsLabel.Name = "customColorsLabel";
             this.customColorsLabel.Size = new System.Drawing.Size(111, 17);
             this.customColorsLabel.TabIndex = 7;
@@ -148,7 +154,7 @@
             this.lineTypeGroup.Controls.Add(this.dottedRadioButton);
             this.lineTypeGroup.Controls.Add(this.solidRadioButton);
             this.lineTypeGroup.Controls.Add(this.dashedRadioButton);
-            this.lineTypeGroup.Location = new System.Drawing.Point(231, 29);
+            this.lineTypeGroup.Location = new System.Drawing.Point(398, 28);
             this.lineTypeGroup.Name = "lineTypeGroup";
             this.lineTypeGroup.Size = new System.Drawing.Size(142, 168);
             this.lineTypeGroup.TabIndex = 10;
@@ -184,7 +190,7 @@
             0,
             0,
             65536});
-            this.lineWidthNumericUpDown.Location = new System.Drawing.Point(54, 352);
+            this.lineWidthNumericUpDown.Location = new System.Drawing.Point(50, 342);
             this.lineWidthNumericUpDown.Maximum = new decimal(new int[] {
             14,
             0,
@@ -203,11 +209,65 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(70, 321);
+            this.label1.Location = new System.Drawing.Point(66, 311);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 17);
             this.label1.TabIndex = 12;
             this.label1.Text = "Line Width";
+            // 
+            // figureTypeGroup
+            // 
+            this.figureTypeGroup.Controls.Add(this.radioButton1);
+            this.figureTypeGroup.Controls.Add(this.radioButton3);
+            this.figureTypeGroup.Controls.Add(this.radioButton4);
+            this.figureTypeGroup.Location = new System.Drawing.Point(216, 28);
+            this.figureTypeGroup.Name = "figureTypeGroup";
+            this.figureTypeGroup.Size = new System.Drawing.Size(142, 129);
+            this.figureTypeGroup.TabIndex = 12;
+            this.figureTypeGroup.TabStop = false;
+            this.figureTypeGroup.Text = "Figure Type";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(15, 91);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(81, 21);
+            this.radioButton1.TabIndex = 10;
+            this.radioButton1.Text = "Triangle";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Checked = true;
+            this.radioButton3.Location = new System.Drawing.Point(15, 37);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(93, 21);
+            this.radioButton3.TabIndex = 8;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Rectangle";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(15, 64);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(64, 21);
+            this.radioButton4.TabIndex = 9;
+            this.radioButton4.Text = "Circle";
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // drawFigureCheckBox
+            // 
+            this.drawFigureCheckBox.AutoSize = true;
+            this.drawFigureCheckBox.Location = new System.Drawing.Point(238, 175);
+            this.drawFigureCheckBox.Name = "drawFigureCheckBox";
+            this.drawFigureCheckBox.Size = new System.Drawing.Size(106, 21);
+            this.drawFigureCheckBox.TabIndex = 14;
+            this.drawFigureCheckBox.Text = "Draw Figure";
+            this.drawFigureCheckBox.UseVisualStyleBackColor = true;
             // 
             // DrawingOptions
             // 
@@ -215,7 +275,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(415, 403);
+            this.ClientSize = new System.Drawing.Size(552, 403);
+            this.Controls.Add(this.drawFigureCheckBox);
+            this.Controls.Add(this.figureTypeGroup);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lineWidthNumericUpDown);
             this.Controls.Add(this.lineTypeGroup);
@@ -235,6 +297,8 @@
             this.lineTypeGroup.ResumeLayout(false);
             this.lineTypeGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lineWidthNumericUpDown)).EndInit();
+            this.figureTypeGroup.ResumeLayout(false);
+            this.figureTypeGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -256,5 +320,10 @@
         private System.Windows.Forms.NumericUpDown lineWidthNumericUpDown;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton dashDotRadioButton;
+        private System.Windows.Forms.GroupBox figureTypeGroup;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.CheckBox drawFigureCheckBox;
+        private System.Windows.Forms.RadioButton radioButton1;
     }
 }

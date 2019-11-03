@@ -12,6 +12,10 @@ namespace MiniDraw
         private Dictionary<RadioButton, DashStyle> buttonToStyle;
         private Color lastColor;
         public Pen pen { get; set; }
+
+        public bool isFigure;
+        public string figureType;
+
         private ColorDialog colorDialog;
         public DrawingOptions()
         {
@@ -19,7 +23,6 @@ namespace MiniDraw
             pen = new Pen(Color.Black, 2);
             colorDialog = new ColorDialog();
             colorDialog.FullOpen = true;
-
             lastColor = Color.Black;
             disableListCheckBox_CheckedChanged(disableListCheckBox, null);
 
@@ -75,6 +78,11 @@ namespace MiniDraw
                 pen.Color = lastColor;
                 if (prevPen.Color.ToArgb() != pen.Color.ToArgb() || prevPen.DashStyle != pen.DashStyle || prevPen.Width != pen.Width)
                     addCustomLineType(pen);
+            }
+            isFigure = drawFigureCheckBox.Checked;
+            if (isFigure)
+            {
+                figureType = figureTypeGroup.Controls.OfType<RadioButton>().First(r => r.Checked).Text;
             }
             Close();
         }       

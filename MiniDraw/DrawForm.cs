@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
@@ -10,9 +9,12 @@ namespace MiniDraw
     public partial class DrawForm : Form
     {
         private Point startCursorPoint, endCursorPoint;
+        private Rectangle rectangle;
+
         private bool isPainting = false;
         private DrawingOptions drawingOptions;
-        private LinesStorage linesStorage;
+        private LinesStorage figuresStorage;
+
         Graphics graphics;
 
         int counter;
@@ -23,32 +25,32 @@ namespace MiniDraw
             InitializeComponent();
             counter = 0;
             drawingOptions = new DrawingOptions();
-            linesStorage = new LinesStorage();
-            graphics = canvas.CreateGraphics();
+            figuresStorage = new LinesStorage();
+            graphics = canvas.CreateGraphics(); 
         }
 
         private void reDrawContent(bool isClearRequired = false)
         {
             if (isClearRequired) graphics.Clear(canvas.BackColor);
             Pen pen = new Pen(Color.Black, 2);
-            foreach (Line line in linesStorage)
+            foreach (Line line in figuresStorage)
             {
                 pen.DashStyle = line.dashStyle;
                 pen.Color = line.color;
                 pen.Width = line.width;
-                graphics.DrawLine(pen, line.startPoint, line.endPoint);
+                line.Draw(graphics, pen);
             }
         }
 
         private void clearAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            linesStorage.Clear();
+            figuresStorage.Clear();
             reDrawContent(true);
         }
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            linesStorage.RemoveLastLine();
+            figuresStorage.RemoveLastLine();
             reDrawContent(true);
         }
 
@@ -62,7 +64,7 @@ namespace MiniDraw
                 lastFilename = openFileDialog.FileName;
                 FileStream fileStream = new FileStream(openFileDialog.FileName, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
-                linesStorage = (LinesStorage)bf.Deserialize(fileStream);
+                figuresStorage = (LinesStorage)bf.Deserialize(fileStream);
                 fileStream.Close();
                 reDrawContent(true);
             }
@@ -87,7 +89,7 @@ namespace MiniDraw
                 lastFilename = saveFileDialog.FileName;
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create, FileAccess.Write);
                 BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(fileStream, linesStorage);
+                bf.Serialize(fileStream, figuresStorage);
                 fileStream.Close();
             }
         }
@@ -95,7 +97,7 @@ namespace MiniDraw
         {
             FileStream fileStream = new FileStream(lastFilename, FileMode.Create, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fileStream, linesStorage);
+            bf.Serialize(fileStream, figuresStorage);
             fileStream.Close();
             MessageBoxHelper.PrepToCenterMessageBoxOnForm(this);
             MessageBox.Show($"Saved to {lastFilename}", "Save Info", MessageBoxButtons.OK);
@@ -122,15 +124,56 @@ namespace MiniDraw
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
             isPainting = false;
-            linesStorage.AppendLine(new Line(startCursorPoint, endCursorPoint, drawingOptions.pen.Color, 
-                drawingOptions.pen.DashStyle, drawingOptions.pen.Width)
-            );
+            if (drawingOptions.isFigure)
+            {
+                figuresStorage.AppendLine(new MyFigure(rectangle, drawingOptions.figureType, drawingOptions.pen.Color,
+                    drawingOptions.pen.DashStyle, drawingOptions.pen.Width));
+            }
+            else
+            {
+                figuresStorage.AppendLine(new Line(startCursorPoint, endCursorPoint, drawingOptions.pen.Color,
+                    drawingOptions.pen.DashStyle, drawingOptions.pen.Width)
+                );
+            }
+        }
+
+        private void drawDifferentFigures()
+        {
+            if (drawingOptions.isFigure)
+            {
+                rectangle = new Rectangle(Math.Min(startCursorPoint.X, endCursorPoint.X),
+                                     Math.Min(startCursorPoint.Y, endCursorPoint.Y),
+                                     Math.Abs(endCursorPoint.X - startCursorPoint.X),
+                                     Math.Abs(endCursorPoint.Y - startCursorPoint.Y));
+                switch (drawingOptions.figureType)
+                {
+                    case "Triangle":
+                        Point[] points =
+                        {
+                            new Point(rectangle.Left, rectangle.Bottom),
+                            new Point(rectangle.Right, rectangle.Bottom),
+                            new Point(rectangle.X + rectangle.Width/2, Math.Min(rectangle.Top, rectangle.Bottom)),
+                        };
+                        graphics.DrawPolygon(drawingOptions.pen, points);
+                        break;
+                    case "Circle":
+                        graphics.DrawEllipse(drawingOptions.pen, rectangle);
+                        break;
+                    case "Rectangle":
+                        graphics.DrawRectangle(drawingOptions.pen, rectangle);
+                        break;
+                }
+            }
+            else
+            {
+                graphics.DrawLine(drawingOptions.pen, startCursorPoint, endCursorPoint);
+            }
         }
 
         private void canvas_Paint(object sender, PaintEventArgs e)
         {
             if (isPainting)
-                graphics.DrawLine(drawingOptions.pen, startCursorPoint, endCursorPoint);
+                drawDifferentFigures();
             reDrawContent();
         }
 

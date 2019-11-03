@@ -32,5 +32,10 @@ namespace MiniDraw
             this.dashStyle = dashStyle ?? DashStyle.Solid;
             this.width = width ?? 2;
         }
+
+        public virtual void Draw(Graphics graphics, Pen pen)
+        {
+            graphics.DrawLine(pen, startPoint, endPoint);
+        }
     }
 }
